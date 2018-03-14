@@ -249,6 +249,10 @@ class UserRelativeUrlSchema(UserSchema):
     homepage = fields.Url(relative=True)
 
 
+class UserNotRequireTldUrlSchema(UserSchema):
+    homepage = fields.Url(require_tld=False)
+
+
 class BlogSchema(Schema):
     title = fields.String()
     user = fields.Nested(UserSchema)

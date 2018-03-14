@@ -94,6 +94,8 @@ def test_url_relative_invalid(invalid_url):
     'http://example:80',
     'http://user.name:pass.word@example',
     'http://example/foo/bar',
+    'http://example-internal',
+    'http://example-internal:80',
 ])
 def test_url_dont_require_tld_valid(valid_url):
     validator = validate.URL(require_tld=False)

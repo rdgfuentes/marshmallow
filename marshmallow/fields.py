@@ -1236,18 +1236,21 @@ class Url(String):
     :param str attribute: The name of the attribute to get the value from. If
         `None`, assumes the attribute has the same name as the field.
     :param bool relative: Allow relative URLs.
+    :param bool require_tld: Allow only FQDN in URLs.
     :param kwargs: The same keyword arguments that :class:`String` receives.
     """
     default_error_messages = {'invalid': 'Not a valid URL.'}
 
-    def __init__(self, relative=False, schemes=None, **kwargs):
+    def __init__(self, relative=False, schemes=None, require_tld=True, **kwargs):
         String.__init__(self, **kwargs)
 
         self.relative = relative
+        self.require_tld = require_tld
         # Insert validation into self.validators so that multiple errors can be
         # stored.
         self.validators.insert(0, validate.URL(
             relative=self.relative,
+            require_tld=self.require_tld,
             schemes=schemes,
             error=self.error_messages['invalid']
         ))
@@ -1257,6 +1260,7 @@ class Url(String):
             return None
         return validate.URL(
             relative=self.relative,
+            require_tld=self.require_tld,
             error=self.error_messages['invalid']
         )(value)
 

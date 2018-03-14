@@ -16,6 +16,7 @@ from tests.base import (
     assert_almost_equal,
     UserSchema,
     UserMetaSchema,
+    UserNotRequireTldUrlSchema,
     UserRelativeUrlSchema,
     ExtendedUserSchema,
     UserIntSchema,
@@ -538,6 +539,10 @@ def test_url_field(serialized_user, user):
 def test_relative_url_field():
     u = {'name': 'John', 'homepage': '/foo'}
     UserRelativeUrlSchema().load(u)
+
+def test_stores_not_require_tld_url():
+    u = {'name': 'Steve', 'homepage': 'http://example-internal'}
+    UserNotRequireTldUrlSchema().load(u)
 
 @pytest.mark.parametrize('SchemaClass',
     [UserSchema, UserMetaSchema])
